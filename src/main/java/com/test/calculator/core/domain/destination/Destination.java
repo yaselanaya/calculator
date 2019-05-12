@@ -1,4 +1,4 @@
-package com.test.calculator.core.domain.campany;
+package com.test.calculator.core.domain.destination;
 
 import com.test.calculator.core.common.validation.Common;
 import com.test.calculator.core.common.validation.OnUpdate;
@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
 @Entity
-public class Company {
+public class Destination {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +29,8 @@ public class Company {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "surcharge", nullable = false)
+    @NotNull(groups = Common.class, message = "validation.error.entity.notnull")
+    private Integer surcharge;
 }

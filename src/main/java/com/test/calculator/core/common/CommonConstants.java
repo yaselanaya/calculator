@@ -16,6 +16,13 @@ public final class CommonConstants {
     /* Key */
     public static final String CUSTOM_PARAM_PAGEABLE_DATA = "data";
 
+    /* Mapping */
+    public static final String MAPPING_FIND_ALL = "/findAll";
 
+    public static final String MAPPING_FIND_ALL_PAGE = "/findAllPage";
+
+    public static final String MAPPING_POST_SAVE = "/save";
+
+    public static final String MAPPING_GET_BY_ID = "/getById/{id}";
 
 }
