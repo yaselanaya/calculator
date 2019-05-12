@@ -3,6 +3,7 @@ package com.test.calculator.core.web.campany;
 import com.test.calculator.core.common.exception.CalculatorException;
 import com.test.calculator.core.common.mapper.CustomParamPageFilter;
 import com.test.calculator.core.domain.campany.Company;
+import com.test.calculator.core.domain.campany.CompanySpecification;
 import com.test.calculator.core.domain.campany.ICompanyService;
 import com.test.calculator.core.infraestructure.campany.CompanyConstants;
 import com.test.calculator.core.web.campany.dto.CompanyDTO;
@@ -77,7 +78,9 @@ public class CompanyController {
         CustomParamPageFilter data = CustomParamPageFilter.mapRequestData(request);
 
         return ResponseEntity.ok(pagedResourcesAssembler.toResource(
-                companyService.findAll(data.getPageable()), companyResourceAssembler
+                companyService.findAll(
+                        new CompanySpecification(data.getFilters()).toSpecification(),
+                        data.getPageable()), companyResourceAssembler
         ));
     }
 
