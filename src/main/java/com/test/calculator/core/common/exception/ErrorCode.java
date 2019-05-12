@@ -1,4 +1,4 @@
-package com.test.calculator.core.common;
+package com.test.calculator.core.common.exception;
 
 public enum  ErrorCode {
     DUPLICITY("DUPLICITY"),

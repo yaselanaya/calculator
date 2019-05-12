@@ -1,4 +1,4 @@
-package com.test.calculator.core.common;
+package com.test.calculator.core.common.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
 package com.test.calculator.core.domain.campany;
 
-import com.test.calculator.core.common.Common;
-import com.test.calculator.core.common.OnUpdate;
+import com.test.calculator.core.common.validation.Common;
+import com.test.calculator.core.common.validation.OnUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

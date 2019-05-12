@@ -1,5 +1,6 @@
-package com.test.calculator.core.common;
+package com.test.calculator.core.common.message;
 
+import com.test.calculator.core.common.CommonConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;

@@ -1,8 +1,8 @@
 package com.test.calculator.core.infraestructure.campany;
 
 import com.google.common.collect.Lists;
-import com.test.calculator.core.common.EntityValidationService;
-import com.test.calculator.core.common.ErrorCode;
+import com.test.calculator.core.common.validation.EntityValidationService;
+import com.test.calculator.core.common.exception.ErrorCode;
 import com.test.calculator.core.domain.campany.Company;
 import com.test.calculator.core.domain.campany.ICompanyRepository;
 import org.apache.logging.log4j.util.Strings;

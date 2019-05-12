@@ -32,7 +32,7 @@ public class CompanyResourceAssembler extends ResourceAssemblerSupport<Company, 
         return resource;
     }
 
-    public Collection<CompanyResource> toResources(Collection<Company> orders) {
-        return orders.stream().map(this::toResource).collect(Collectors.toList());
+    public Collection<CompanyResource> toResources(Collection<Company> companies) {
+        return companies.stream().map(this::toResource).collect(Collectors.toList());
     }
 }

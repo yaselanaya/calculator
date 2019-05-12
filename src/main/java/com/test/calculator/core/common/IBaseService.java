@@ -1,5 +1,6 @@
 package com.test.calculator.core.common;
 
+import com.test.calculator.core.common.exception.CalculatorException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

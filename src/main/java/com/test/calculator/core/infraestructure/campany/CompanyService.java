@@ -1,6 +1,6 @@
 package com.test.calculator.core.infraestructure.campany;
 
-import com.test.calculator.core.common.CalculatorException;
+import com.test.calculator.core.common.exception.CalculatorException;
 import com.test.calculator.core.domain.campany.Company;
 import com.test.calculator.core.domain.campany.CompanyFactory;
 import com.test.calculator.core.domain.campany.ICompanyRepository;

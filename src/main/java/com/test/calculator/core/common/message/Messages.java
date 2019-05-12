@@ -1,4 +1,4 @@
-package com.test.calculator.core.common;
+package com.test.calculator.core.common.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

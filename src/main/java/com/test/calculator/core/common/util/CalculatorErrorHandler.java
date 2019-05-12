@@ -1,9 +1,9 @@
 package com.test.calculator.core.common.util;
 
 import com.google.common.collect.Maps;
-import com.test.calculator.core.common.CalculatorException;
-import com.test.calculator.core.common.CalculatorValidationException;
-import com.test.calculator.core.common.Messages;
+import com.test.calculator.core.common.exception.CalculatorException;
+import com.test.calculator.core.common.exception.CalculatorValidationException;
+import com.test.calculator.core.common.message.Messages;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
