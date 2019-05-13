@@ -28,7 +28,7 @@ public class DestinationServiceValidation extends EntityValidationService<Destin
     @Override
     protected List<Map<String, Object>> validateCommonBusinessConstraints(Destination destination){
 
-        /* Validate business logic specific to order */
+        /* Validate business logic specific to destination */
         List<Map<String, Object>> errors = Lists.newArrayList();
 
         if(Objects.nonNull(destinationRepository.findByName(destination.getName()))) {

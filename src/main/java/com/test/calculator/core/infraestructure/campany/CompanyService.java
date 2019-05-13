@@ -70,6 +70,13 @@ public class CompanyService implements ICompanyService {
         return companyRepository.save(company);
     }
 
+    /***
+     * Method to update a company
+     *
+     * @param companyDTO object came from view
+     * @return return company update
+     * @throws CalculatorException throw an exception if company is not valid for save
+     */
     @Override
     public Company update(CompanyDTO companyDTO) throws CalculatorException {
         return companyRepository.save(companyFactory.from(companyDTO));

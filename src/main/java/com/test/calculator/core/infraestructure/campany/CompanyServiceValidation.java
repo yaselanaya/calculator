@@ -30,7 +30,7 @@ public class CompanyServiceValidation extends EntityValidationService<Company> {
     @Override
     protected List<Map<String, Object>> validateCommonBusinessConstraints(Company company){
 
-        /* Validate business logic specific to order */
+        /* Validate business logic specific to company */
         List<Map<String, Object>> errors = Lists.newArrayList();
 
         if(Objects.nonNull(companyRepository.findByName(company.getName()))) {

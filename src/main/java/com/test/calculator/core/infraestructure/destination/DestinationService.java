@@ -71,6 +71,13 @@ public class DestinationService implements IDestinationService {
         return destinationRepository.save(destination);
     }
 
+    /***
+     * Method to update a ship
+     *
+     * @param destinationDTO object came from view
+     * @return return destination updated
+     * @throws CalculatorException throw an exception if destination is not valid for save
+     */
     @Override
     public Destination update(DestinationDTO destinationDTO) throws CalculatorException {
         return destinationRepository.save(destinationFactory.from(destinationDTO));

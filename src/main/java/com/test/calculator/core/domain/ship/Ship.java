@@ -1,4 +1,4 @@
-package com.test.calculator.core.domain.campany;
+package com.test.calculator.core.domain.ship;
 
 import com.test.calculator.core.common.validation.Common;
 import com.test.calculator.core.common.validation.OnUpdate;
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Builder
 @Entity
-public class Company {
+public class Ship {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,8 @@ public class Company {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "capacity", nullable = false)
+    @NotNull(groups = Common.class, message = "validation.error.entity.notnull")
+    private Float capacity;
 }

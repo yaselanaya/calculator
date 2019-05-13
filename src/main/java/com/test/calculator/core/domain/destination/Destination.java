@@ -20,7 +20,7 @@ public class Destination {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(groups = OnUpdate.class, message = "validation.error.company.notnull.id")
+    @NotNull(groups = OnUpdate.class, message = "validation.error.entity.notnull.id")
     private Long id;
 
     @Column(name = "name", nullable = false)
