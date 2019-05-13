@@ -44,7 +44,7 @@ public class ShipController {
      * Method to find a ship by id
      *
      * @param id id of the ship
-     * @return destination object
+     * @return ship object
      */
     @GetMapping(value = CommonConstants.MAPPING_GET_BY_ID)
     public ResponseEntity<ShipResource> findById(@PathVariable Long id) {

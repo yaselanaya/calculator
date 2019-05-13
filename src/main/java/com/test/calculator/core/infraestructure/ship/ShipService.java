@@ -65,7 +65,7 @@ public class ShipService implements IShipService {
         // Convert dto to entity
         Ship ship = shipFactory.from(shipDTO);
 
-        // Validate destination dto
+        // Validate ship dto
         shipServiceValidation.validateForCreate(ship);
 
         return shipRepository.save(ship);
@@ -80,6 +80,6 @@ public class ShipService implements IShipService {
      */
     @Override
     public Ship update(ShipDTO shipDTO) throws CalculatorException {
-        return null;
+        return shipRepository.save(shipFactory.from(shipDTO));
     }
 }

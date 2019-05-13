@@ -1,8 +1,8 @@
-package com.test.calculator.core.domain.ship;
+package com.test.calculator.core.domain.shiplaod;
 
 import com.test.calculator.core.common.validation.Common;
 import com.test.calculator.core.common.validation.OnUpdate;
-import com.test.calculator.core.domain.shiplaod.ShipLoad;
+import com.test.calculator.core.domain.ship.Ship;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,31 +10,25 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
 @Entity
-public class Ship {
+public class ShipLoad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(groups = OnUpdate.class, message = "validation.error.entity.notnull.id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "ship_id")
     @NotNull(groups = Common.class, message = "validation.error.entity.notnull")
-    private String name;
+    private Ship ship;
 
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "capacity", nullable = false)
+    @Column(name = "load", nullable = false)
     @NotNull(groups = Common.class, message = "validation.error.entity.notnull")
-    private Float capacity;
-
-    @OneToMany(mappedBy = "ship")
-    private Collection<ShipLoad> shipLoads;
+    private Float load;
 }
