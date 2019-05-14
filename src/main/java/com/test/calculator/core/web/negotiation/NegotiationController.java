@@ -1,12 +1,12 @@
 package com.test.calculator.core.web.negotiation;
 
+import com.google.common.collect.Maps;
 import com.test.calculator.core.common.CommonConstants;
 import com.test.calculator.core.common.exception.CalculatorException;
 import com.test.calculator.core.common.mapper.CustomParamPageFilter;
-import com.test.calculator.core.domain.destination.Destination;
 import com.test.calculator.core.domain.negotiation.INegotiationService;
-import com.test.calculator.core.domain.negotiation.Negotiation;
 import com.test.calculator.core.domain.negotiation.NegotiationSpecification;
+import com.test.calculator.core.infraestructure.negotiation.NegotiationConstants;
 import com.test.calculator.core.web.negotiation.dto.NegotiationDTO;
 import com.test.calculator.core.web.negotiation.dto.NegotiationResource;
 import com.test.calculator.core.web.negotiation.dto.NegotiationResourceAssembler;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = NegotiationController.ENTITY_URI ,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -100,6 +101,13 @@ public class NegotiationController {
             @RequestBody NegotiationDTO negotiationDTO
     ) throws CalculatorException {
         return ResponseEntity.ok(negotiationResourceAssembler.toResource(negotiationService.save(negotiationDTO)));
+    }
+
+    @GetMapping(path = NegotiationConstants.MAPPING_POST_SAVE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map> calculateFleteOfNegotiation(
+            @RequestParam("negotiationId") Long negotiationId
+    ) throws CalculatorException {
+        return ResponseEntity.ok(negotiationService.calculateFleteOfNegotiation(negotiationId));
     }
 
 }
