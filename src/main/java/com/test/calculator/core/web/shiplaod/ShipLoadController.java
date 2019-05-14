@@ -3,7 +3,7 @@ package com.test.calculator.core.web.shiplaod;
 import com.test.calculator.core.common.CommonConstants;
 import com.test.calculator.core.common.exception.CalculatorException;
 import com.test.calculator.core.common.mapper.CustomParamPageFilter;
-import com.test.calculator.core.domain.shiplaod.ShipLoad;
+import com.test.calculator.core.domain.shiplaod.IShipLoadService;
 import com.test.calculator.core.domain.shiplaod.ShipLoadSpecification;
 import com.test.calculator.core.infraestructure.shiplaod.ShipLoadService;
 import com.test.calculator.core.web.shiplaod.dto.ShipLoadDTO;
@@ -30,7 +30,7 @@ public class ShipLoadController {
 
     private final ShipLoadResourceAssembler shipLoadResourceAssembler;
 
-    private final ShipLoadService shipLoadService;
+    private final IShipLoadService shipLoadService;
 
     @Autowired
     public ShipLoadController(PagedResourcesAssembler pagedResourcesAssembler,

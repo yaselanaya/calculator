@@ -2,6 +2,7 @@ package com.test.calculator.core.domain.destination;
 
 import com.test.calculator.core.common.validation.Common;
 import com.test.calculator.core.common.validation.OnUpdate;
+import com.test.calculator.core.domain.negotiation.Negotiation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 
 @NoArgsConstructor
@@ -33,4 +35,7 @@ public class Destination {
     @Column(name = "surcharge", nullable = false)
     @NotNull(groups = Common.class, message = "validation.error.entity.notnull")
     private Integer surcharge;
+
+    @OneToMany(mappedBy = "destination")
+    private Collection<Negotiation> negotiations;
 }

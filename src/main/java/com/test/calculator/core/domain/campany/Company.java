@@ -1,7 +1,9 @@
 package com.test.calculator.core.domain.campany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.test.calculator.core.common.validation.Common;
 import com.test.calculator.core.common.validation.OnUpdate;
+import com.test.calculator.core.domain.negotiation.Negotiation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,4 +31,14 @@ public class Company {
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany
+    @JoinColumn(name = "origin_company_id")
+    @JsonManagedReference("originCompany")
+    private Collection<Negotiation> originNegotiations;
+
+    @OneToMany
+    @JoinColumn(name = "destination_company_id")
+    @JsonManagedReference("destinationCompany")
+    private Collection<Negotiation> destinationNegotiations;
 }
