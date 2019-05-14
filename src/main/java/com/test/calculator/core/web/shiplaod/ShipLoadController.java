@@ -5,10 +5,16 @@ import com.test.calculator.core.common.exception.CalculatorException;
 import com.test.calculator.core.common.mapper.CustomParamPageFilter;
 import com.test.calculator.core.domain.shiplaod.IShipLoadService;
 import com.test.calculator.core.domain.shiplaod.ShipLoadSpecification;
+import com.test.calculator.core.infraestructure.ship.ShipConstants;
+import com.test.calculator.core.infraestructure.shiplaod.ShipLoadConstants;
 import com.test.calculator.core.infraestructure.shiplaod.ShipLoadService;
 import com.test.calculator.core.web.shiplaod.dto.ShipLoadDTO;
 import com.test.calculator.core.web.shiplaod.dto.ShipLoadResource;
 import com.test.calculator.core.web.shiplaod.dto.ShipLoadResourceAssembler;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
@@ -21,10 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(path = ShipLoadController.ENTITY_URI ,produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = ShipLoadConstants.ENTITY_URI ,produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(description = ShipLoadConstants.API_DOC)
 public class ShipLoadController {
-
-    static final String ENTITY_URI = "/shipLoad";
 
     private final PagedResourcesAssembler pagedResourcesAssembler;
 
@@ -47,6 +52,10 @@ public class ShipLoadController {
      * @return ship load object
      */
     @GetMapping(value = CommonConstants.MAPPING_GET_BY_ID)
+    @ApiOperation(value = "Retrieve a ship load by id", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", paramType = "path", required = true)
+    })
     public ResponseEntity<ShipLoadResource> findById(@PathVariable Long id) {
         return shipLoadService.findById(id).map(shipLoadResourceAssembler::toResource)
                 .map(ResponseEntity::ok)
@@ -59,6 +68,7 @@ public class ShipLoadController {
      * @return collection of ship objects
      */
     @GetMapping(value = CommonConstants.MAPPING_FIND_ALL)
+    @ApiOperation(value = "Find all ship loads", response = ResponseEntity.class)
     public ResponseEntity<Collection<ShipLoadResource>> findAll(){
         return ResponseEntity.ok(shipLoadResourceAssembler.toResources(shipLoadService.findAll()));
     }
@@ -72,6 +82,10 @@ public class ShipLoadController {
      */
     @SuppressWarnings("unchecked")
     @GetMapping(value = CommonConstants.MAPPING_FIND_ALL_PAGE)
+    @ApiOperation(value = "Find all ship loads by page and filter", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "data", paramType = "query", value = CommonConstants.VALUE_DATA_PAGE_FILTER)
+    })
     public ResponseEntity<PagedResources<Collection<ShipLoadResource>>> findAllPage(
             HttpServletRequest request
     ) throws CalculatorException{
@@ -94,6 +108,7 @@ public class ShipLoadController {
      * @throws CalculatorException validation exception
      */
     @PostMapping(path = CommonConstants.MAPPING_POST_SAVE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Save a new ship load", response = ResponseEntity.class)
     public ResponseEntity<ShipLoadResource> save(
             @RequestBody ShipLoadDTO shipLoadDTO
     ) throws CalculatorException {

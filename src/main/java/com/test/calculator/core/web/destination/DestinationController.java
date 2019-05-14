@@ -6,9 +6,14 @@ import com.test.calculator.core.common.mapper.CustomParamPageFilter;
 import com.test.calculator.core.domain.destination.Destination;
 import com.test.calculator.core.domain.destination.DestinationSpecification;
 import com.test.calculator.core.domain.destination.IDestinationService;
+import com.test.calculator.core.infraestructure.destination.DestinationConstants;
 import com.test.calculator.core.web.destination.dto.DestinationDTO;
 import com.test.calculator.core.web.destination.dto.DestinationResource;
 import com.test.calculator.core.web.destination.dto.DestinationResourceAssembler;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
@@ -21,10 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(path = DestinationController.ENTITY_URI ,produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = DestinationConstants.ENTITY_URI ,produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(description = DestinationConstants.API_DOC)
 public class DestinationController {
-
-    static final String ENTITY_URI = "/destination";
 
     private final PagedResourcesAssembler pagedResourcesAssembler;
 
@@ -48,6 +52,10 @@ public class DestinationController {
      * @return destination object
      */
     @GetMapping(value = CommonConstants.MAPPING_GET_BY_ID)
+    @ApiOperation(value = "Retrieve a destination by id", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", paramType = "path", required = true)
+    })
     public ResponseEntity<DestinationResource> findById(@PathVariable Long id) {
         return destinationService.findById(id).map(destinationResourceAssembler::toResource)
                 .map(ResponseEntity::ok)
@@ -60,6 +68,7 @@ public class DestinationController {
      * @return collection of destination objects
      */
     @GetMapping(value = CommonConstants.MAPPING_FIND_ALL)
+    @ApiOperation(value = "Find all destination", response = ResponseEntity.class)
     public ResponseEntity<Collection<Destination>> findAll(){
         return ResponseEntity.ok(destinationService.findAll());
     }
@@ -73,6 +82,10 @@ public class DestinationController {
      */
     @SuppressWarnings("unchecked")
     @GetMapping(value = CommonConstants.MAPPING_FIND_ALL_PAGE)
+    @ApiOperation(value = "Find all destinations by page and filter", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "data", paramType = "query", value = CommonConstants.VALUE_DATA_PAGE_FILTER)
+    })
     public ResponseEntity<PagedResources<Collection<DestinationResource>>> findAllPage(
             HttpServletRequest request
     ) throws CalculatorException{
@@ -94,6 +107,7 @@ public class DestinationController {
      * @throws CalculatorException validation exception
      */
     @PostMapping(path = CommonConstants.MAPPING_POST_SAVE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Save a new destination", response = ResponseEntity.class)
     public ResponseEntity<DestinationResource> save(
             @RequestBody DestinationDTO destinationDTO
     ) throws CalculatorException {

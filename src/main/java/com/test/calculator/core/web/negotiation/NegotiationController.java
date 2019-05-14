@@ -10,6 +10,10 @@ import com.test.calculator.core.infraestructure.negotiation.NegotiationConstants
 import com.test.calculator.core.web.negotiation.dto.NegotiationDTO;
 import com.test.calculator.core.web.negotiation.dto.NegotiationResource;
 import com.test.calculator.core.web.negotiation.dto.NegotiationResourceAssembler;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
@@ -23,10 +27,9 @@ import java.util.Collection;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = NegotiationController.ENTITY_URI ,produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = NegotiationConstants.ENTITY_URI ,produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(description = NegotiationConstants.API_DOC)
 public class NegotiationController {
-
-    static final String ENTITY_URI = "/negotiation";
 
     private final PagedResourcesAssembler pagedResourcesAssembler;
 
@@ -50,6 +53,10 @@ public class NegotiationController {
      * @return negotiation object
      */
     @GetMapping(value = CommonConstants.MAPPING_GET_BY_ID)
+    @ApiOperation(value = "Retrieve a negotiation by id", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", paramType = "path", required = true)
+    })
     public ResponseEntity<NegotiationResource> findById(@PathVariable Long id) {
         return negotiationService.findById(id).map(negotiationResourceAssembler::toResource)
                 .map(ResponseEntity::ok)
@@ -62,6 +69,7 @@ public class NegotiationController {
      * @return collection of negotiation objects
      */
     @GetMapping(value = CommonConstants.MAPPING_FIND_ALL)
+    @ApiOperation(value = "Find all negotiations", response = ResponseEntity.class)
     public ResponseEntity<Collection<NegotiationResource>> findAll(){
         return ResponseEntity.ok(negotiationResourceAssembler.toResources(negotiationService.findAll()));
     }
@@ -75,6 +83,10 @@ public class NegotiationController {
      */
     @SuppressWarnings("unchecked")
     @GetMapping(value = CommonConstants.MAPPING_FIND_ALL_PAGE)
+    @ApiOperation(value = "Find all negotiations by page and filter", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "data", paramType = "query", value = CommonConstants.VALUE_DATA_PAGE_FILTER)
+    })
     public ResponseEntity<PagedResources<Collection<NegotiationResource>>> findAllPage(
             HttpServletRequest request
     ) throws CalculatorException{
@@ -97,6 +109,7 @@ public class NegotiationController {
      * @throws CalculatorException validation exception
      */
     @PostMapping(path = CommonConstants.MAPPING_POST_SAVE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Save a new negotiation", response = ResponseEntity.class)
     public ResponseEntity<NegotiationResource> save(
             @RequestBody NegotiationDTO negotiationDTO
     ) throws CalculatorException {
@@ -104,6 +117,10 @@ public class NegotiationController {
     }
 
     @GetMapping(path = NegotiationConstants.MAPPING_POST_SAVE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Calculate flete of a negotiation", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "negotiationId", paramType = "query", value = "Negotiation ID")
+    })
     public ResponseEntity<Map> calculateFleteOfNegotiation(
             @RequestParam("negotiationId") Long negotiationId
     ) throws CalculatorException {

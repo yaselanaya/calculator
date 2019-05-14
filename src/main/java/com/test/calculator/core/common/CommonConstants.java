@@ -25,4 +25,10 @@ public final class CommonConstants {
 
     public static final String MAPPING_GET_BY_ID = "/getById/{id}";
 
+    /* PARAMS */
+    public static final String VALUE_DATA_PAGE_FILTER = "String with format " +
+            "{\"filters\":[{\"field\":\"Name of the entity field\", \"value\":\"Value to filter\", " +
+            "\"operator\":\"Operator value enum to compare\"}], \"pageable\":{\"page\":\"Default 0\", \"size\":\"Default 10\", " +
+            "\"orders\":[{\"direction\":\"DESC|ASC\", \"property\":\"Name of the entity property\"}]}}";
+
 }

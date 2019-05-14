@@ -6,9 +6,14 @@ import com.test.calculator.core.common.mapper.CustomParamPageFilter;
 import com.test.calculator.core.domain.campany.Company;
 import com.test.calculator.core.domain.campany.CompanySpecification;
 import com.test.calculator.core.domain.campany.ICompanyService;
+import com.test.calculator.core.infraestructure.campany.CompanyConstants;
 import com.test.calculator.core.web.campany.dto.CompanyDTO;
 import com.test.calculator.core.web.campany.dto.CompanyResource;
 import com.test.calculator.core.web.campany.dto.CompanyResourceAssembler;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
@@ -21,10 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(path = CompanyController.ENTITY_URI ,produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = CompanyConstants.ENTITY_URI ,produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(description = CompanyConstants.API_DOC)
 public class CompanyController {
-
-    static final String ENTITY_URI = "/company";
 
     private final CompanyResourceAssembler companyResourceAssembler;
 
@@ -46,6 +50,10 @@ public class CompanyController {
      * @return company object
      */
     @GetMapping(value = CommonConstants.MAPPING_GET_BY_ID)
+    @ApiOperation(value = "Retrieve a company by id", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", paramType = "path", required = true)
+    })
     public ResponseEntity<CompanyResource> findById(@PathVariable Long id) {
         return companyService.findById(id).map(companyResourceAssembler::toResource)
                 .map(ResponseEntity::ok)
@@ -58,6 +66,7 @@ public class CompanyController {
      * @return collection of company objects
      */
     @GetMapping(value = CommonConstants.MAPPING_FIND_ALL)
+    @ApiOperation(value = "Find all companies", response = ResponseEntity.class)
     public ResponseEntity<Collection<Company>> findAll(){
         return ResponseEntity.ok(companyService.findAll());
     }
@@ -71,6 +80,10 @@ public class CompanyController {
      */
     @SuppressWarnings("unchecked")
     @GetMapping(value = CommonConstants.MAPPING_FIND_ALL_PAGE)
+    @ApiOperation(value = "Find all companies by page and filter", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "data", paramType = "query", value = CommonConstants.VALUE_DATA_PAGE_FILTER)
+    })
     public ResponseEntity<PagedResources<Collection<CompanyResource>>> findAllPage(
             HttpServletRequest request
     ) throws CalculatorException{
@@ -92,6 +105,7 @@ public class CompanyController {
      * @throws CalculatorException validation exception
      */
     @PostMapping(path = CommonConstants.MAPPING_POST_SAVE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Save a new company", response = ResponseEntity.class)
     public ResponseEntity<CompanyResource> save(@RequestBody CompanyDTO companyDTO) throws CalculatorException {
         return ResponseEntity.ok(companyResourceAssembler.toResource(companyService.save(companyDTO)));
     }
